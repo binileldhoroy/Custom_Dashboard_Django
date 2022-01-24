@@ -1,0 +1,42 @@
+{% extends 'base/main.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-3">
+          {% if cur_user %}
+          <p>Welcome @{{ cur_user }}</p>
+          {% endif %}
+            <div class="card" >
+                <div class="card-header">
+                  Gallery
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">An item</li>
+                  <li class="list-group-item">A second item</li>
+                  <li class="list-group-item">A third item</li>
+                  <a href="{% url 'logout' %}" class="btn btn-dark btn-block btn-sm m-1">Logout</a>
+                </ul>
+              </div>
+        </div>
+        <div class="col-md-9">
+           
+                
+                <div class="col">
+                  <div class="card h-100">
+                    <div class="m-4 text-center" >
+                      <img src="" class="card-img-top img-thumbnail p-5"  alt="...">
+                    </div>
+                    <div class="card-body">
+                      <h5 class="card-title">afafa</h5>
+                      <p class="card-text"> dgfdfzgf</p> <strong>42$</strong>
+                    </div>
+                    <dir class="mt-1">
+                      <button type="button" class="btn btn-primary">Buy Now</button>
+                    </dir>
+                  </div>
+                </div>
+
+              
+        </div>
+    </div>
+{% endblock %}

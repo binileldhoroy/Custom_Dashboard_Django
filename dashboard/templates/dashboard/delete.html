@@ -1,0 +1,15 @@
+{% extends 'dashboard/main.html' %}
+
+{% block content %}
+<div class="text-center mt-5">
+    <p>Are you sure you want to delete "{{user.username}}"?</p>
+
+
+<form method="POST" action="">
+	{% csrf_token %}
+    <a href="{% url 'home' %}"class="btn btn-success btn-block btn-sm m-1" >Cancel</a>
+	<input type="submit" class="btn btn-danger btn-block btn-sm m-1" name="Confirm">
+</form>
+</div>
+
+{% endblock %}

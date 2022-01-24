@@ -1,0 +1,29 @@
+{% extends 'dashboard/main.html' %}
+
+{% block content %}
+
+{% include 'dashboard/nav.html' %}
+
+<table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr>
+            <th scope="row">1</th>
+            <td>{{ user.username }}</td>
+            <td>{{user.email}}</td>
+            <td><a href="{% url 'update' user.id %}" class="btn btn-dark btn-block btn-sm m-1">Edit</a></td>
+            <td><a href="{% url 'delete' user.id %}" class="btn btn-danger btn-block btn-sm m-1">Delete</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+  </table>
+{% endblock %}
