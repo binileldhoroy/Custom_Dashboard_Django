@@ -7,3 +7,10 @@ class User(models.Model):
     username = models.CharField(max_length=200,null=True)
     email = models.EmailField(unique=True,null=True)
     password = models.CharField(max_length=200)
+    name = models.CharField(max_length=200,null=True)
+
+class BaseUser(models.Model):
+    username = models.CharField(max_length=200,null=True)
+    email = models.EmailField(unique=True,null=True)
+    password = models.CharField(max_length=200)
+    name = models.CharField(max_length=200,null=True)

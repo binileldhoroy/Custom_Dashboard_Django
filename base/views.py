@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views.decorators.cache import never_cache
-from .models import User
+from .models import BaseUser
 # Create your views here.
 
 
@@ -14,7 +14,7 @@ def loginUser(request):
         
 
         try:
-            user = User.objects.get(username = c_username,password = c_password)
+            user = BaseUser.objects.get(username = c_username,password = c_password)
 
             if user is not None:
                 request.session['uname'] = c_username
@@ -34,6 +34,7 @@ def registerUser(request):
     elif request.method == 'POST':
         cusername = request.POST['username']
         cemail = request.POST['email']
+        fname = request.POST['fullname']
         cpassword = request.POST['password']
         cpassword1 = request.POST['password1']
         if len(cpassword) != 6:
@@ -47,12 +48,12 @@ def registerUser(request):
             uname = None
             uemail = None
             try:
-                uname = User.objects.get(username = cusername)
+                uname = BaseUser.objects.get(username = cusername)
 
             except:
                 pass
             try:
-                uemail = User.objects.get(email = cemail)
+                uemail = BaseUser.objects.get(email = cemail)
 
             except:
                 pass
@@ -64,10 +65,11 @@ def registerUser(request):
                 text = 'Username Allready taken'
                 return render(request,'base/register.html',{'etext':text})
             else:
-                user = User.objects.create(
+                user = BaseUser.objects.create(
                     username = cusername,
                     email = cemail,
-                    password = cpassword
+                    password = cpassword,
+                    name = fname
                 )
                 user.save()
                 text = "Successfully Created"

@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
-from base.models import User
+from base.models import BaseUser
 from base.forms import UserForm
 from django.views.decorators.cache import never_cache
+from django.db.models import Q
 
 # Create your views here.
 
@@ -27,7 +28,12 @@ def loginAdmin(request):
 def home(request):
     if request.session.has_key('ses_admin'):
         request.session['ses_admin']
-        userView = User.objects.all()
+        q = request.GET.get('q') if request.GET.get('q') != None else ''
+        userView = BaseUser.objects.filter(
+            Q(username__icontains=q)|
+            Q(email__icontains=q)|
+            Q(name__icontains=q)
+        )
         context = {'users':userView}
         return render(request,'dashboard/home.html',context)
     else:
@@ -37,7 +43,7 @@ def home(request):
 def delete(request,pkey):
     if request.session.has_key('ses_admin'):
         request.session['ses_admin']
-        user = User.objects.get(id=pkey)
+        user = BaseUser.objects.get(id=pkey)
 
         if request.method == 'POST':
             user.delete()
@@ -50,7 +56,7 @@ def delete(request,pkey):
 def update(request,pkey):
     if request.session.has_key('ses_admin'):
         request.session['ses_admin']
-        user = User.objects.get(id=pkey)
+        user = BaseUser.objects.get(id=pkey)
         form = UserForm(instance=user)
         if request.method == 'POST':
             form = UserForm(request.POST,instance=user)
