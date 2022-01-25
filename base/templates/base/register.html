@@ -1,7 +1,7 @@
 {% extends 'base/main.html' %}
 
 {% block content %}
-<section class="vh-100" style="background-color: #eee;">
+<section class="vh-150" style="background-color: #eee;">
     <div class="container h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-lg-12 col-xl-11">
@@ -54,7 +54,9 @@
                         <label class="form-label" for="form3Example4c">Password</label>
                       </div>
                     </div>
-  
+                    {% if ptext %}
+                      <p style="color: red;">{{ ptext }}</p>
+                    {% endif %}
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
@@ -62,10 +64,6 @@
                         <label class="form-label" for="form3Example4cd">Repeat your password</label>
                       </div>
                     </div>
-
-                    {% if etext %}
-                      <p style="color: red;">{{ ptext }}</p>
-                    {% endif %}
   
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                       <button type="submit" class="btn btn-primary btn-lg">Register</button>

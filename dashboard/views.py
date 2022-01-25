@@ -69,6 +69,55 @@ def update(request,pkey):
     else:
         return redirect('admin-login')
 
+def addUser(request):
+    if request.session.has_key('ses_admin'):
+        request.session['ses_admin']
+        if request.method == 'POST':
+            cusername = request.POST['username']
+            cemail = request.POST['email']
+            fname = request.POST['fullname']
+            cpassword = request.POST['password']
+            cpassword1 = request.POST['password1']
+            if len(cpassword) != 6:
+                text = "Must be 6 letters"
+                return render(request,'dashboard/adduser.html',{'ptext':text})
+            elif cpassword != cpassword1:
+                text = "Password Miss Match"
+                return render(request,'dashboard/adduser.html',{'ptext':text})
+            else:
+
+                uname = None
+                uemail = None
+                try:
+                    uname = BaseUser.objects.get(username = cusername)
+
+                except:
+                    pass
+                try:
+                    uemail = BaseUser.objects.get(email = cemail)
+
+                except:
+                    pass
+                
+                if uname is not None:
+                    text = 'Username Already taken'
+                    return render(request,'dashboard/adduser.html',{'utext':text})
+                elif uemail is not None:
+                    text = 'Email Already taken'
+                    return render(request,'dashboard/adduser.html',{'etext':text})
+                else:
+                    user = BaseUser.objects.create(
+                        username = cusername,
+                        email = cemail,
+                        password = cpassword,
+                        name = fname
+                    )
+                    user.save()
+                    text = "Successfully Created"
+                    return render(request,'dashboard/adduser.html',{'stext':text})
+        else:
+            return render(request,'dashboard/adduser.html')
+
 @never_cache
 def logout(request):
     try:
