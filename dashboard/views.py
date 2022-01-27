@@ -78,7 +78,7 @@ def addUser(request):
             fname = request.POST['fullname']
             cpassword = request.POST['password']
             cpassword1 = request.POST['password1']
-            if len(cpassword) != 6:
+            if len(cpassword) <= 6:
                 text = "Must be 6 letters"
                 return render(request,'dashboard/adduser.html',{'ptext':text})
             elif cpassword != cpassword1:

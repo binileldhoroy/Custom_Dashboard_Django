@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views.decorators.cache import never_cache
-from .models import BaseUser
+from .models import BaseUser, Ebook
 # Create your views here.
 
 
@@ -37,7 +37,7 @@ def registerUser(request):
         fname = request.POST['fullname']
         cpassword = request.POST['password']
         cpassword1 = request.POST['password1']
-        if len(cpassword) != 6:
+        if len(cpassword) <= 6:
             text = "Must be 6 letters"
             return render(request,'base/register.html',{'ptext':text})
         elif cpassword != cpassword1:
@@ -85,9 +85,12 @@ def registerUser(request):
 def home(request):
     if request.session.has_key('uname'):
         cur_user = request.session['uname']
-        return render(request,'base/home.html',{'cur_user':cur_user})
+        ebooks = Ebook.objects.all()
+        return render(request,'base/home.html',{'cur_user':cur_user,'ebooks':ebooks})
     else:
         return redirect('login')
+
+
 
 @never_cache
 def logoutUser(request):
