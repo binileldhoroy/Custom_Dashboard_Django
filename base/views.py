@@ -37,7 +37,13 @@ def registerUser(request):
         fname = request.POST['fullname']
         cpassword = request.POST['password']
         cpassword1 = request.POST['password1']
-        if len(cpassword) <= 6:
+        if len(cusername) < 3 or cusername == '':
+            text = "Must be 3 letters"
+            return render(request,'base/register.html',{'utext':text})
+        elif len(fname) < 3 or fname == '':
+            text = "Must be 3 letters"
+            return render(request,'base/register.html',{'etext':text})
+        if len(cpassword) < 6:
             text = "Must be 6 letters"
             return render(request,'base/register.html',{'ptext':text})
         elif cpassword != cpassword1:

@@ -40,6 +40,7 @@ def home(request):
         return redirect('admin-login')
 
 
+@never_cache
 def delete(request,pkey):
     if request.session.has_key('ses_admin'):
         request.session['ses_admin']
@@ -53,6 +54,7 @@ def delete(request,pkey):
     else:
          return redirect('admin-login')
 
+@never_cache
 def update(request,pkey):
     if request.session.has_key('ses_admin'):
         request.session['ses_admin']
@@ -69,6 +71,7 @@ def update(request,pkey):
     else:
         return redirect('admin-login')
 
+@never_cache
 def addUser(request):
     if request.session.has_key('ses_admin'):
         request.session['ses_admin']
@@ -78,7 +81,13 @@ def addUser(request):
             fname = request.POST['fullname']
             cpassword = request.POST['password']
             cpassword1 = request.POST['password1']
-            if len(cpassword) <= 6:
+            if len(cusername) < 3 and cusername == '':
+                text = "Must be 3 letters"
+                return render(request,'dashboard/adduser.html',{'utext':text})
+            elif fname == '' and len(fname) < 3:
+                text = "Must be 3 letters"
+                return render(request,'dashboard/adduser.html',{'etext':text})
+            elif len(cpassword) < 6:
                 text = "Must be 6 letters"
                 return render(request,'dashboard/adduser.html',{'ptext':text})
             elif cpassword != cpassword1:

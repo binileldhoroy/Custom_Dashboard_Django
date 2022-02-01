@@ -22,7 +22,7 @@
             <td>{{ user.username }}</td>
             <td>{{ user.name }}</td>
             <td>{{user.email}}</td>
-            <td><a href="{% url 'update' user.id %}" class="btn btn-dark btn-block btn-sm m-1">Edit</a></td>
+            <td><a href="{% url 'update' user.id %}" class="btn btn-warning btn-block btn-sm m-1">Edit</a></td>
             <td><a href="{% url 'delete' user.id %}" class="btn btn-danger btn-block btn-sm m-1">Delete</a></td>
           </tr>
           {% endfor %}
